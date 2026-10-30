@@ -1,4 +1,4 @@
-const CUSTOMER_SITES = 
+const CUSTOMER_SITES = {
     lzizy: {
         api: 'https://cj.lziapi.com/api.php/provide/vod',
         name: '量子资源'
