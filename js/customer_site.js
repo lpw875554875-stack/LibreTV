@@ -36,12 +36,20 @@ if (window.extendAPISites) {
     console.error("错误：请先加载 config.js！");
 }
 
+// 默认勾选以上片源（否则搜不到）
+try {
+    var __siteKeys = Object.keys(CUSTOMER_SITES);
+    if (!localStorage.getItem('hasInitializedDefaults')) {
+        localStorage.setItem('selectedAPIs', JSON.stringify(__siteKeys));
+        localStorage.setItem('yellowFilterEnabled', 'true');
+        localStorage.setItem('adFilteringEnabled', 'true');
+        localStorage.setItem('doubanEnabled', 'true');
+        localStorage.setItem('hasInitializedDefaults', 'true');
+    } else {
+        var __sel = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
+        __siteKeys.forEach(function (__k) {
+            if (!__sel.includes(__k)) __sel.push(__k);
+        });
+        localStorage.setItem('selectedAPIs', JSON.stringify(__sel));
     }
-};
-
-// 调用全局方法合并
-if (window.extendAPISites) {
-    window.extendAPISites(CUSTOMER_SITES);
-} else {
-    console.error("错误：请先加载 config.js！");
-}
+} catch (e) {}
